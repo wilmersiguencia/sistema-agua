@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["rep_debtors_title"] }} - {{ t["app_title"] }}{% endblock %} 
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-exclamation-triangle" ></i> {{ t["rep_debtors_header"] }}</h2>
+        <div>
+            <button onclick="window.print()" class="btn-view">
+                <i class="fas fa-print"></i> {{ t["btn_print_list"] }}
+            </button>
+            <a href="{{ url_for('reportes') }}" class="btn-submit">
+                <i class="fas fa-arrow-left"></i> {{ t["btn_back"] }}
+            </a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <p>{{ t["rep_debtors_subtitle"] }}:</p>
+
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>{{ t["th_user"] }}</th>
+                    <th>{{ t["th_sector"] }}</th>
+                    <th>{{ t["th_pending"] }}</th>
+                    <th>{{ t["th_total_debt"] }}</th>
+                    <th>{{ t["th_actions"] }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in deudores %}
+                <tr>
+                    <td>
+                        <strong>{{ d.nombre }}</strong><br>
+                        <small>{{ t["label_id_short"] }}: {{ d.cedula }}</small>
+                    </td>
+                    <td>{{ d.sector if d.sector else t["general_sector"] }}</td>
+                    <td>
+                        <span class="badge">
+                            {{ d.meses_pendientes }} {{ t["months_label"] }}
+                        </span>
+                    </td>
+                    <td class="text-danger">
+                        ${{ "%.2f"|format(d.deuda_total) }}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('detalle_usuario', usuario_id=d.id) }}" class="btn-view">
+                            <i class="fas fa-hand-holding-usd"></i> {{ t["btn_collect"] }}
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="empty-msg">{{ t["no_debtors"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

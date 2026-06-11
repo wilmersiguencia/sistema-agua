@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["rep_main_title"] }} - {{ t["app_title"] }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-file-invoice-dollar"></i> {{ t["rep_main_header"] }}</h2>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('reporte_deudores') }}" class="btn-view" style="background: #e74c3c;" title="Ver quienes deben">
+                <i class="fas fa-user-slash"></i> {{ t["btn_view_debtors"] }}
+            </a>
+            <a href="{{ url_for('descargar_plantilla') }}" class="btn-view" title="Descargar socios para llenar">
+                <i class="fas fa-file-download"></i> {{ t["btn_download_template"] }}
+            </a>
+            <a href="{{ url_for('subir_excel')}}" class="btn-submit" title="Subir archivo con lecturas">
+                <i class="fas fa-file-upload"></i> {{ t["btn_upload_excel"] }}
+            </a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>{{ t["th_month_year"] }}</th>
+                    <th>{{ t["th_num_readings"] }}</th>
+                    <th>{{ t["th_amount_collected"] }}</th>
+                    <th>{{ t["th_status"] }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set gran_total = 0 %}
+                {% for r in reporte %}
+                <tr>
+                    <td><strong>{{ r.mes }}</strong></td>
+                    <td>{{ r.cantidad }} {{ t["records_label"] }}</td>
+                    <td><strong>${{ "%.2f"|format(r.total) }}</strong></td>
+                    <td><span class="badge badge-active">{{ t["status_consolidated"] }}</span></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">{{ t["no_data"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="info-footer">
+        <p><i class="fas fa-into-circle"></i> {{ t["rep_footer_info"] }}</p>
+    </div>
+</div>
+{% endblock %}

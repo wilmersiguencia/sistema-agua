@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["dash_title"] }} - {{ t["app_title"] }}{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="welcome-header">
+        <h2>{{ t["welcome_user"].format(name=session.get('username')) }}</h2>
+        <p>{{ t["select_option"] }}</p>
+    </div>
+
+    <div class ="option-grid">
+        <div class="option-card">
+            <a href="{{ url_for('nueva_lectura') }}">
+                <i class="fas fa-tint"></i>
+                <span>{{ t["menu_read"] }}</span>
+            </a>
+        </div>
+
+        <div class="option-card">
+            <a href="/calcular"> <i class="fas fa-calculator"></i>
+                <span>{{ t["calc_consumption"] }}</span>
+            </a>
+        </div>
+
+        <div class="option-card">
+            <a href="/historial">
+                <i class="fas fa-history"></i>
+                <span>{{ t["menu_hist"] }}</span>
+            </a>
+        </div>
+
+        <div class="option-card">
+            <a href="{{ url_for('usuarios') }}">
+                <i class="fas fa-users"></i>
+                <span>{{ t["menu_users"] }}</span>
+            </a>
+        </div>
+
+        <div class="option-card">
+            <a href="/reportes">
+                <i class="fas fa-chart-pie"></i>
+                <span>{{ t["menu_reps"] }}</span>
+            </a>    
+        </div>
+    </div>
+</div>
+{% endblock %}

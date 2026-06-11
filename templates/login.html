@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["login_title"] }} - {{ t["app_title"] }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page-wrapper">
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="login-title">{{ t["login_title"] }}</h2>
+
+            <form method="POST" action="{{ url_for('login') }}">
+                <div class="input-group">
+                    <input type="text" name="admin_usuario" placeholder="{{ t['username'] }}" required autofocus>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="admin_password" placeholder="{{ t['password'] }}" required>
+                </div>
+                <button type="submit" class="btn-login">{{ t["btn_enter"] }}</button>
+            </form>
+
+        </div>    
+    </div>
+</div>
+{% endblock %}

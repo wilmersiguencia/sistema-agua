@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ t["app_title"] }}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {% block head %}{% endblock %}
+</head>
+
+<body class="{% if not session.get('admin') %}body-login{% endif %}">
+
+{% if session.get('admin') %}
+    <!--navbar superior-->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <h1>{{ t["app_title"]}}</h1>
+        </div>
+        <div class="navbar-right">
+            <a href="{{ url_for('change_lang', lang='es') }}">ES</a> |
+            <a href="{{ url_for('change_lang', lang='en') }}">EN</a>
+
+            <span class="user-badge">
+                <i class="fas fa-user-shield"></i> 
+                {{ t["admin_label"] }}: {{ session.get('username') }}
+            </span>
+        </div>
+    </nav>
+
+    <!--menu lateral-->
+    <div class="side-menu">
+        <div class="menu-header">
+            <div class="brand-box">
+                <span class="band-main">Flow<span class="brand-accent">Bit</span></span>
+                <div class="brand-divider"></div>
+                <span class="brand-sub">INTEGRATED SOLUTIONS</span>
+            </div>
+        </div>
+        
+        <nav class="menu-nav">
+
+            <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">
+                <i class="fas fa-home"></i> {{ t["menu_dash"] }}
+            </a>
+            <a href="{{ url_for('usuarios') }}" class="{% if request.endpoint == 'usuarios' %}active{% endif %}">
+                <i class="fas fa-users"></i> {{ t["menu_users"] }}
+            </a>
+            <a href="{{ url_for('nueva_lectura') }}" class="{% if request.endpoint == 'nueva_lectura' %}active{% endif %}">
+                <i class="fas fa-tint"></i> {{ t["menu_read"] }}
+            </a>
+            <a href="{{ url_for('historial') }}" class="{% if request.endpoint == 'historial' %}active{% endif %}">
+                <i class="fas fa-history"></i> {{ t["menu_hist"] }}
+            </a>
+            <a href="{{ url_for('reportes') }}" class="{% if request.endpoint == 'reportes' %}active{% endif %}">
+                <i class="fas fa-chart-bar"></i> {{ t["menu_reps"] }}
+            </a>
+            <a href="{{ url_for('logout') }}" class="logout-link">
+                <i class="fas fa-sign-out-alt"></i> {{ t["menu_logout"] }}
+            </a>
+        </nav>
+    </div>
+{% endif %}
+
+<main class="{% if session.get('admin') %}content{% else %}content-full{% endif %}">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                <i class="fas fa-info-circle"></i> 
+                {{ t[message] if message in t else message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    {% block content %} {% endblock %}
+</main>
+
+{% block scripts %}{% endblock %} 
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+/*login admin moderno*/
+
+body.body-login {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "poppins", sans-serif;
+    margin: 0;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+}
+.login-box {
+    background-color: #ffffff;
+    padding: 60px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 95%;
+    flex-shrink: 0;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeIn 0.6s ease;
+}
+
+.login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.login-box h2 {
+    margin-bottom: 35px;
+    color: #0072ff;
+    font-weight: 600;
+    font-size: 28px;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.3s;
+    background-color: #f8f8f8;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.login-box input[type="text"]:focus,
+.login-box input[type="password"]:focus {
+    border-color: #0072ff;
+    background-color: #fff;
+    outline: none;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    background: linear-gradient(to right, #0072ff, #00c6ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+}
+
+.login-box .error {
+    color: #ff4d4d;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/*animacion de entrada*/
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(20px);}
+    to { opacity: 1; transform: translate(0);}
+}

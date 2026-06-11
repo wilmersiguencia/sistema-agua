@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["reg_title"] }} - {{ t["app_title"] }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-faucet"></i> {{ t["reg_title"] }}</h2>
+    </div>
+
+    <div class="table-container">
+        <form method="POST">
+            <div class="form-group">
+                <label><i class="fas fa-id-card"></i> {{ t["member_id"] }}:</label>
+                <input type="text" name="cedula" placeholder="{{ t['ph_search_cedula'] }}" required class="form-control" autofocus>
+                <small>{{ t["search_help"] }}</small>               
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-tachometer-alt"></i> {{ t["current_reading"] }}:</label>
+                <input type="number" name="final" placeholder="0" required class="form-control">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-file-invoice"></i> {{ t["btn_save"] }}
+                </button>
+                <a href="{{ url_for('home') }}" class="btn-cancel" style="text-decoration: none; color: #7f8c8d; margin-left: 10px;">
+                    {{ t["btn_cancel"] }}
+                </a>
+            </div>
+        </form>
+    </div>
+
+    {% if reciente %}
+    <div class="table-container" style="margin-top: 20px; border-top: 3px solid #3498db;">
+        <h4><i class="fas fa-check-circle"></i> {{ t["last_record_title"] }}:</h4>
+        <p>{{ t["member_label"] }}: {{ reciente.nombre }} | {{ t["consumption_label"] }}: {{ reciente.consumo }} m³ | Total: ${{ reciente.total }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

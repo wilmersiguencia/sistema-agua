@@ -1,0 +1,40 @@
+/* main.css: importa todos los estilos */
+@import url('base.css');
+@import url('navbar.css');
+@import url('menu.css');
+@import url('content_tables.css');
+@import url('forms_buttons.css');
+@import url('dashboard.css');
+@import url('estilos.css');
+
+.content-full {
+    width: 100%;
+    min-height: 100vh;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.body-login {
+    margin: 0;
+    padding: 0;
+}
+
+@media print {
+    .side-menu, .navbar, .btn-view, .btn-submit {
+        display: none !important;
+    }
+
+    .main-content, .content {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .table-container {
+        box-shadow: none !important;
+        border: 1px solid #eee !important;
+    }
+}

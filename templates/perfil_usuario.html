@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["profile_title"] }} - {{ usuario.nombre }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-id-card"></i> {{ t["profile_header"] }}</h2>
+        <a href="{{ url_for('usuarios') }}" class="btn-submit">
+            <i class="fas fa-arrow-left"></i> {{ t["btn_back_registry"] }}
+        </a>
+    </div>
+
+    <div class="table-container">
+        <h3>{{ t["member_data"] }}</h3>
+        <p><strong>{{ t["label_id"] }}:</strong> {{ usuario.cedula }}</p>
+        <p><strong>{{ t["label_name"] }}:</strong> {{ usuario.nombre }}</p>
+        <p><strong>{{ t["label_sector"] }}:</strong> {{ usuario.sector if usuario.sector else "Sin asignar" }}</p>
+        <p><strong>{{ t["label_meter"] }}:</strong> {{ usuario.medidor }}</p>
+        <p><strong>{{ t["label_phone"] }}:</strong> {{ usuario.celular if usuario.celular else "No registrado" }}</p>
+        <p><strong>{{ t["label_email"] }}:</strong> {{ usuario.correo if usuario.correo else "No registrado" }}</p>
+    </div>
+
+    <div class="table-container">
+        <h3>{{ t["account_status"] }}</h3>
+        <div class="saldo-box">
+            <p>{{ t["total_pending"] }}:</p>
+            <h2 class="{% if saldo > 0 %}"text-danger{% else %}text-succes{% endif %}> 
+                ${{ "%.2f"|format(saldo) }}
+            </h2>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <h3>{{ t["reading_history"] }}</h3>
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>{{ t["th_date"] }}</th>
+                    <th>{{ t["th_reading_range"] }}</th>
+                    <th>{{ t["th_amount"] }}</th>
+                    <th>{{ t["th_status"] }}</th>
+                    <th>{{ t["th_actions"] }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in lecturas %}
+                <tr>
+                    <td>{{ l.creado_en }}</td>
+                    <td>{{ l.lectura_inicial }} - {{ l.lectura_final }}</td>
+                    <td>{{ "%.2f"|format(l.total_pago) }}</td>
+                    <td>
+                        <span class="badge {{ l.estado|lower }}">
+                            {% if l.estado|lower == 'pagado' %} {{ t["status_paid"] }} {% else %} {{ t["status_pending"] }} {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if l.estado|lower == 'pendiente' %}
+                        <a href="{{ url_for('confirmar_pago', lectura_id=l.id) }}" class="btn-submit">
+                            <i class="fas fa-cash-register"></i> {{ t["btn_collect"] }}
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('ver_factura', lectura_id=l.id) }}" class="btn-view" title="Ver Factura">
+                            <i class="fas fa-print"></i> {{ t["btn_invoice_short"] }}
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="empty-msg">{{ t["no_member_readings"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

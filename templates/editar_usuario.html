@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["edit_user_title"] }} - {{ u.nombre }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-user-edit"></i> {{ t["edit_user_header"] }}</h2>
+    </div>
+
+    <div class="table-container">
+        <form method="POST">
+            <div class="form-group">
+                <label>{{ t["label_name"] }}:</label>
+                <input type="text" name="nombre" value="{{ u.nombre }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>{{ t["label_id"] }}:</label>
+                <input type="text" name="cedula" value="{{ u.cedula }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>{{ t["label_sector"] }}:</label>
+                <input type="text" name="sector" value="{{ u.sector }}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>{{ t["label_meter"] }}:</label>
+                <input type="text" name="medidor" value="{{ u.medidor }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>{{ t["label_phone"] }}:</label>
+                <input type="text" name="celular" value="{{ u.celular }}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>{{ t["label_email"] }}:</label>
+                <input type="email" name="correo" value="{{ u.correo }}" class="form-control">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i> {{ t["btn_save_changes"] }}
+                </button>
+                <a href="{{ url_for('usuarios') }}" class="btn-view" style="background: #95a5a6;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

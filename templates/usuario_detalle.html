@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["profile_title"] }} - {{ usuario["nombre"] }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-user"></i> {{ t["member_data"] }}</h2>
+        <div class="action-buttons">
+            <a href="{{ url_for('usuarios') }}" class="btn-view">
+                <i class="fas fa-arrow-left"></i> {{ t["btn_back_list"] }}
+            </a>
+            <a href="{{ url_for('editar_usuario', usuario_id=usuario['id']) }}" class="btn-edit">
+                <i class="fas fa-edit"></i> {{ t["tip_edit"] }}
+            </a>
+        </div>
+    </div>
+
+    <div class="info-container">
+        <p><strong>{{ t["label_id"] }}:</strong> {{ usuario["cedula"] }}</p>
+        <p><strong>{{ t["label_name"] }}:</strong> {{ usuario["nombre"] }}</p>
+        <p><strong>{{ t["label_sector"] }}:</strong> {{ usuario["sector"] if usuario["sector"] else "General" }}</p>
+        <p><strong>{{ t["label_meter"] }}:</strong> {{ usuario["medidor"] }}</p>
+        <p><strong>{{ t["label_phone"] }}:</strong> {{ usuario["celular"] if usuario["celular"] else "N/A" }}</p>
+        <p><strong>{{ t["label_email"] }}:</strong> {{ usuario["correo"] if usuario["correo"] else "N/A" }}</p>
+    </div>
+
+    <hr>
+
+    <h3><i class="fas fa-history"></i> {{ t["reading_history"] }}</h3>
+
+    <div class="table-container">
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>{{ t["th_init"] }}</th>
+                    <th>{{ t["th_final"] }}</th>
+                    <th>{{ t["th_consumption"] }}</th>
+                    <th>{{ t["th_date"] }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in lecturas %}
+                <tr>
+                    <td>{{ l["lectura_inicial"] }}</td>
+                    <td>{{ l["lectura_final"] }}</td>
+                    <td>{{ l["lectura_final"] - l["lectura_inicial"] }}</td>
+                    <td>{{ l["fecha"] }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                   <td colspan="4" class="empty-msg">{{ t["no_member_readings"] }}</td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["inv_title"] }} - {{ nombre }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-file-invoice-dollar"></i> {{ t["inv_title"] }}</h2>
+        <div>
+            <button onclick="window.print()" class="btn-view" style="background: #34495e; cursor: pointer;">
+                <i class="fas fa-print"></i> {{ t["btn_print"] }}
+            </button>
+            <a href="{{ url_for('home') }}" class="btn-submit">
+                <i class="fas fa-home"></i> {{ t["menu_dash"] }}
+            </a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="factura-header" style="text-align: center; margin-bottom: 20px;">
+            <h3>{{ t["inv_org_name"] }}</h3>
+            <p>{{ t["inv_subtitle"] }}</p>
+        </div>
+
+        <hr>
+
+        <div class="factura-datos" style="margin: 20px 0;">
+            <p><strong>{{ t["inv_customer"] }}:</strong> {{ nombre }}</p>
+            <p><strong>{{ t["inv_id"] }}:</strong> {{ cedula }}</p>
+            <p><strong>{{ t["inv_date_label"] }}:</strong> {{ fecha }}</p>
+        </div>
+
+        <table class="content-table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>{{ t["th_description"] }}</th>
+                    <th>{{ t["th_quantity"] }}</th>
+                    <th>{{ t["th_total"] }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ t["inv_base_desc"] }}</td>
+                    <td>{{ consumo }} m³</td>
+                    <td>$5.00</td>
+                </tr>
+                <tr>
+                    <td>{{ t["inv_excess_desc"] }}</td>
+                    <td>{{ exceso }} m³</td>
+                    <td>${{ "%.2f"|format(total|float - 5.0) }}</td>
+                </tr>
+                <tr style="background: #f8f9fa; font-weight: bold;">
+                    <td colspan="2" style="text-align: right;">{{ t["inv_total_pay"] }}:</td>
+                    <td>${{ "%.2f"|format(total) }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="factura-footer" style="margin-top: 30px; text-align: center; font-style: italic;">
+            <p>{{ t["inv_warning"] }}</p>
+            <p>{{ t["inv_thanks"] }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

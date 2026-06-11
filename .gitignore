@@ -1,0 +1,16 @@
+# Entorno virtual
+venv/
+ENV/
+env/
+
+# Base de datos local
+agua.db
+
+# Configuración y secretos
+.env
+
+# Archivos generados y temporales
+*.xlsx
+__pycache__/
+*.pyc
+.DS_Store

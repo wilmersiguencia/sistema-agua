@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t["sim_title"] }} - {{ t["app_title"] }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="header-section">
+        <h2><i class="fas fa-calculator"></i> {{ t["sim_title"] }}</h2>
+    </div>
+    <div class="form-container">
+        <p>{{ t["sim_subtitle"] }}</p>
+        <br>
+        <div class="form-group">
+            <label>{{ t["th_init"] }}:</label>
+            <input type="number" id="ant" class="form-control" placeholder="0">
+        </div>
+        <div class="form-group">
+            <label>{{ t["th_final"] }}:</label>
+            <input type="number" id="act" class="form-control" placeholder="0">
+        </div>
+        <button onclick="simular()" class="btn-submit">{{ t["btn_calc_now"] }}</button>
+
+        <div id="resultado" style="margin-top: 20px; font-weight: bold; color: #2c3e50;"></div>
+    </div>
+</div>
+
+<script>
+function simular() {
+    let ant = parseFloat(document.getElementById('ant').value) || 0;
+    let act = parseFloat(document.getElementById('act').value) || 0;
+    let consumo = act - ant;
+
+    if (consumo < 0) {
+        document.getElementById('resultado').innerHTML = "{{ t['sim_error'] }}";
+        return;
+    }
+
+    let tarifaBase = 5.0;
+    let exceso = Math.max(0, consumo - 20);
+    let total = tarifaBase + (exceso * 0.5);
+
+    document.getElementById('resultado').innerHTML = 
+        `{{ t['consumption_label'] }}: ${consumo} m³ <br> {{ t['sim_total'] }}: $${total.toFixed(2)}`;
+}
+</script>
+{% endblock %}
