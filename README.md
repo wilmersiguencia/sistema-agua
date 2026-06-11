@@ -87,6 +87,17 @@ Built with a robust Python backend and an elegant user interface, the system sol
 Follow these steps to run this project locally:
 
 ### 1. Clone the Repository
+
+#### Option 1: HTTPS (recommended for most users)
+
 ```bash
-git clone [https://github.com/YOUR_USERNAME/sistema-agua.git](https://github.com/wilmersiguencia/sistema-agua.git)
+git clone https://github.com/wilmersiguencia/sistema-agua.git
 cd sistema-agua
+```
+
+#### Option 2: SSH (if you have SSH configured)
+
+```bash
+git clone git@github.com:wilmersiguencia/sistema-agua.git
+cd sistema-agua
+```

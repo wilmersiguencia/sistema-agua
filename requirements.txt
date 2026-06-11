@@ -1,2 +1,4 @@
-Flask
-python-dotenv
+Flask 
+python-dotenv 
+pandas 
+openpyxl
